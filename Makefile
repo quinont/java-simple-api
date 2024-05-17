@@ -1,4 +1,5 @@
 build:
+	./gradlew clean
 	./gradlew clean bootJar
 
 run:
@@ -10,4 +11,4 @@ test:
 install:
 	./gradlew clean build
 
-.PHONY: test
+.PHONY: test build
