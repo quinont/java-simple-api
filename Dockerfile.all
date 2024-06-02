@@ -1,0 +1,15 @@
+FROM gradle:jdk17-jammy as builder
+WORKDIR /app
+COPY . .
+RUN apt-get update && apt-get install build-essential -y 
+RUN make install
+RUN make test
+RUN make build
+
+
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /myapp
+COPY --from=builder /app/build/libs/*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
